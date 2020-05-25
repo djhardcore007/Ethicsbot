@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-    Usage: python3 binary_clf train_csv_file_path
+    Usage: python3 binary_clf.py train_csv_file_path
     Only train when you have gpu ready
 
 """
