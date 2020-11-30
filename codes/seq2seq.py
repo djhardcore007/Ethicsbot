@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-    Usage: python3 seq2seq.py training_csv_file_path post_lower_len post_higher_len comment_max_len output_dir
+    Usage: python3 seq2seq.py data_dir submission_lower_len submission_higher_len comment_max_len output_dir
     Only train when you have gpu ready
 
 """
@@ -49,26 +49,27 @@ def make_train_eval_df(selected_data, TEST_SIZE=0.2):
 
 if __name__ == '__main__':
     data_dir = sys.argv[1]
-    data = load_data(data_dir)
-    # you can change here
     lower_len, higher_len = sys.argv[2], sys.argv[3]
+    max_length_ = sys.argv[4]
+    output_dir = sys.argv[5]
+
+    data = load_data(data_dir)
     selected_data = select_submission_length(data, lower_len, higher_len)
     print_length(selected_data)
-    # train/dev split
-    train_df, eval_df = make_train_eval_df(selected_data)
+    train_df, eval_df = make_train_eval_df(selected_data)   # train/val split
 
     logging.basicConfig(level=logging.INFO)
     transformers_logger = logging.getLogger("transformers")
     transformers_logger.setLevel(logging.WARNING)
 
-    # params
+    # set params
     model_type = "bart"
-    max_seq_length = higher_len     # 256
-    max_length = sys.argv[4]        # max sentence length to be generated
+    max_seq_length = higher_len     # 128/256/512
+    max_length = max_length_        # max sentence length to be generated
     bs = 8
     epochs = 2
-    OUTPUT_DIR = sys.argv[5] + str(datetime.datetime.now())[:19]+'_'+model_type+'_'+str(max_seq_length)+'_'+str(max_length)
-    print("saved the model here: {}".format(OUTPUT_DIR))
+    OUTPUT_DIR = output_dir + str(datetime.datetime.now())[:19]+'_'+model_type+'_'+str(max_seq_length)+'_'+str(max_length)
+    print("find the model and output here: {}".format(OUTPUT_DIR))
     model_args = {
         "output_dir": OUTPUT_DIR,
         "reprocess_input_data": True,
@@ -85,12 +86,11 @@ if __name__ == '__main__':
         "manual_seed": 4,
     }
 
-    # clear cache before training every time
-    torch.cuda.empty_cache()
+    torch.cuda.empty_cache()    # clear cache before training every time
     model = Seq2SeqModel(
         encoder_decoder_type="bart",
         encoder_decoder_name="facebook/bart-large",
-        args=model_args,)
+        args=model_args,)       # load pre-trained model
 
     # Train the model
     model.train_model(train_df)
