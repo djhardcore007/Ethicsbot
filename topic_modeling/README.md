@@ -43,4 +43,4 @@ Aspect 12: furniture. This might be in the same category as aspect 9.
 
 Aspect 13: offensive words… related to religion, race, lgbt.
 
-We could catch a glimpse of what people are discussing. Note that not every aspect makes sense. The last two seem to repeat previous aspects. So this is just a rough sketch of topics people talked about. Maybe in future interpretation tasks, we could identify aspect of each submission, and observe how our ethics bot perform within different aspects.
+We could catch a glimpse of what people are discussing. Note that not every aspect makes sense. The last two seem to repeat previous aspects. So this is just a rough sketch of topics people talked about. Maybe in future interpretation tasks, we could identify aspect of each submission, and observe how our ethics bot performs within different aspects.
