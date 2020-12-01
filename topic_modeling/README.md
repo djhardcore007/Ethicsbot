@@ -1,26 +1,19 @@
-For topic modeling, I adopted an unsupervised Attention-based Aspect Extraction algorithm. 
-In my understanding, this algorithm is just a fancy adaption of low rank matrix approximation. 
-The ultimate goal is to reconstruct aspect embeddings matrix $T$ (with $L$-dimension) from Attention-based contextual word embedding $E$ ($V$-dimension, $V$ = vocab_size), where $L << V$. 
-They use this newly constructed T to translate sentences, such that every sentence would be a linear interpolation of $T$ (representing L aspects). 
-During training, they try to minimize the difference between this interpolation and representation by original Attention based embedding. 
-Resulting T would be desired aspects. 
-According to the paper, the initialization of $T$ adopts K-means clustering results, 
-so the results are pretty similar to K-means results with Attention-based contextual word embedding. 
-For further details, see original paper: \url{https://www.aclweb.org/anthology/P17-1036.pdf}
+# Aspect Extraction Algorithm
 
-This new unsupervised topic modeling algorithm adopts the popular Attention mechanism and is able to yield far better results than LDA. 
-The reason I prefer this model to LDA is: 
+For topic modeling, we adopted an [unsupervised Attention-based Aspect Extraction algorithm](https://www.aclweb.org/anthology/P17-1036.pdf), which is a fancy attention-based adaption of low rank matrix approximation. 
 
-1) it adopts Attention based contextual word embedding, which is consistent with our Bert based binary classifier; 
+The goal is to reconstruct aspect embeddings matrix from Attention-based contextual word embedding.
+They use this newly constructed aspect embeddings to translate sentences, such that every sentence would be a linear interpolation of L aspect embeddings.
+During training, they try to minimize the differences between the interpolation and representation by novel Attention based embedding. 
+The Resulting aspect embeddings would be desired output. 
+The initialization of aspect embeddings adopts K-means clustering results, so the results are pretty similar to K-means results with Attention-based contextual word embedding. Please refer to the original paper for further details.
 
-2) it exceled LDA in every possible aspect according to the paper.
+We adopted the [python3 implementation](https://github.com/harpaj/Unsupervised-Aspect-Extraction) forked from 
+[original codes](https://github.com/ruidan/Unsupervised-Aspect-Extraction).
 
-I used this python3 implementation (https://github.com/harpaj/Unsupervised-Aspect-Extraction) forked from 
-original codes by the paper author (https://github.com/ruidan/Unsupervised-Aspect-Extraction).
+## results
 
-I arbitrarily set parameter num_aspect = 14, which outputs 14 clusters of topics, which are supposed to be equally weighted. Yet topics are sorted by weights in each aspect. The outputs after 5 epochs are saved  here. 
-
-From this, we could catch a glimpse of what people are discussing. Note that not every aspect makes sense. The last two seem to repeat previous aspects. So this is just a rough sketch of topics people talked about…
+num_aspect is set to 14, which outputs 14 clusters of topics, which are supposed to be equally weighted. Yet topics are sorted by weights in each aspect. Results after 5 epochs:
 
 Aspect 0: parties, celebrations 
 
@@ -50,6 +43,4 @@ Aspect 12: furniture. This might be in the same category as aspect 9. This means
 
 Aspect 13: offensive words… related to religion, race, lgbt… This might be in the same category as aspect 4. 
 
-\textbf{Suggestions}:
-
-Maybe in future interpretation tasks, we could identify aspect of each submission, and observe how our ethics bot perform within different aspects.
+We could catch a glimpse of what people are discussing. Note that not every aspect makes sense. The last two seem to repeat previous aspects. So this is just a rough sketch of topics people talked about. Maybe in future interpretation tasks, we could identify aspect of each submission, and observe how our ethics bot perform within different aspects.
