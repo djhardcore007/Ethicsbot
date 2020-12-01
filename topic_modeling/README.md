@@ -5,7 +5,7 @@ For topic modeling, we adopted an [unsupervised Attention-based Aspect Extractio
 The goal is to reconstruct aspect embeddings matrix from Attention-based contextual word embedding.
 They use this newly constructed aspect embeddings to translate sentences, such that every sentence would be a linear interpolation of L aspect embeddings.
 During training, they try to minimize the differences between the interpolation and representation by novel Attention based embedding. 
-The Resulting aspect embeddings would be desired output. 
+The Resulting aspect embeddings would be the desired output. 
 The initialization of aspect embeddings adopts K-means clustering results, so the results are pretty similar to K-means results with Attention-based contextual word embedding. Please refer to the original paper for further details.
 
 We adopted the [python3 implementation](https://github.com/harpaj/Unsupervised-Aspect-Extraction) forked from 
