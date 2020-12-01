@@ -1,4 +1,4 @@
-# Aspect Extraction Algorithm
+# Topic Modeling by Aspect Extraction Algorithm
 
 For topic modeling, we adopted an [unsupervised Attention-based Aspect Extraction algorithm](https://www.aclweb.org/anthology/P17-1036.pdf), which is a fancy attention-based adaption of low rank matrix approximation. 
 
@@ -11,9 +11,9 @@ The initialization of aspect embeddings adopts K-means clustering results, so th
 We adopted the [python3 implementation](https://github.com/harpaj/Unsupervised-Aspect-Extraction) forked from 
 [original codes](https://github.com/ruidan/Unsupervised-Aspect-Extraction).
 
-## results
+## Results
 
-num_aspect is set to 14, which outputs 14 clusters of topics, which are supposed to be equally weighted. Yet topics are sorted by weights in each aspect. Results after 5 epochs:
+num_aspect is set to 14, which outputs equally weighted 14 clusters of topics. Yet topics are sorted by weights in each topic. Results after 5 epochs:
 
 Aspect 0: parties, celebrations 
 
@@ -39,8 +39,8 @@ Aspect 10: money issue
 
 Aspect 11: marriage, family and relationship.
 
-Aspect 12: furniture. This might be in the same category as aspect 9. This means that we could reduce num_aspect = 14.
+Aspect 12: furniture. This might be in the same category as aspect 9.
 
-Aspect 13: offensive words… related to religion, race, lgbt… This might be in the same category as aspect 4. 
+Aspect 13: offensive words… related to religion, race, lgbt.
 
 We could catch a glimpse of what people are discussing. Note that not every aspect makes sense. The last two seem to repeat previous aspects. So this is just a rough sketch of topics people talked about. Maybe in future interpretation tasks, we could identify aspect of each submission, and observe how our ethics bot perform within different aspects.
